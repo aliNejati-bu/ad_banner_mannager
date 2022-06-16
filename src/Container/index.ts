@@ -20,6 +20,7 @@ import {IPasswordService} from "../App/Interfaces/PasswordService/IPasswordServi
 import {BcryptPasswordService} from "../App/Services/PasswordService/BcryptPasswordService";
 import {IUploaderService} from "../App/Interfaces/UploaderService/IUploaderService";
 import {MulterUploaderService} from "../App/Services/UpladerService/MulterUploaderService";
+import {BannerValidator} from "../Middleware/Validators/BannerValidator";
 
 
 // create new container default in singleton mode
@@ -47,6 +48,6 @@ container.bind<IUserRepository>(DataTypes.IUserRepository).to(MongooseUserReposi
 // bind validator to container
 container.bind<BaseValidator>(BaseValidator).to(BaseValidator);
 container.bind<UserValidator>(UserValidator).to(UserValidator);
-
+container.bind<BannerValidator>(BannerValidator).to(BannerValidator)
 
 export {container};
