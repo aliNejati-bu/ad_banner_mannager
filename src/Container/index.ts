@@ -18,6 +18,8 @@ import {ITokenService} from "../App/Interfaces/TokenService/ITokenService";
 import {JsonwebtokenTokenService} from "../App/Services/TokenService/JsonwebtokenTokenService";
 import {IPasswordService} from "../App/Interfaces/PasswordService/IPasswordService";
 import {BcryptPasswordService} from "../App/Services/PasswordService/BcryptPasswordService";
+import {IUploaderService} from "../App/Interfaces/UploaderService/IUploaderService";
+import {MulterUploaderService} from "../App/Services/UpladerService/MulterUploaderService";
 
 
 // create new container default in singleton mode
@@ -31,6 +33,7 @@ container.bind<ILoggerService>(UtilsTypes.ILoggerService).to(ConsoleLoggerServic
 container.bind<IIDService>(TYPES.IIDService).to(UUIDService);
 container.bind<ITokenService>(TYPES.ITokenService).to(JsonwebtokenTokenService);
 container.bind<IPasswordService>(TYPES.IPasswordService).to(BcryptPasswordService);
+container.bind<IUploaderService>(TYPES.IUploadService).to(MulterUploaderService);
 
 //bind app implementations
 container.bind<Auth>(Auth).to(Auth);
