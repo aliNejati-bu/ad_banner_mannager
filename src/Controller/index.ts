@@ -1,5 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import {Router} from "express";
+import {asyncWrapper} from "../helpers/functions";
 
 
 const router = Router();
@@ -9,25 +10,29 @@ export class Controller {
     private readonly basePath: string;
 
 
-
     private action: Array<{
         path: string,
         methode: "get" | "post" | "put" | "delete",
         handler: (req: Request, res: Response, next?: NextFunction) => void,
         middlewares?: ((req: Request, res: Response, next?: NextFunction) => void)[]
     }>;
+
     constructor(basePath: string) {
         this.basePath = basePath
         this.action = []
     }
+
     public addAction(
         path: string,
         methode: "get" | "post" | "put" | "delete",
         handler: (req: Request, res: Response, next?: NextFunction) => void,
         middlewares?: Array<(req: Request, res: Response, next?: NextFunction) => void>
     ): void {
+        middlewares = middlewares?.map(value => {
+            return asyncWrapper(value)
+        })
         this.action.push({
-            path:this.basePath + path,
+            path: this.basePath + path,
             methode,
             handler: handler.bind(this),
             middlewares
