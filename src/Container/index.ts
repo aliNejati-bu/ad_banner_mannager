@@ -48,6 +48,6 @@ container.bind<IUserRepository>(DataTypes.IUserRepository).to(MongooseUserReposi
 // bind validator to container
 container.bind<BaseValidator>(BaseValidator).to(BaseValidator);
 container.bind<UserValidator>(UserValidator).to(UserValidator);
-container.bind<BannerValidator>(BannerValidator).to(BannerValidator)
+container.bind<BannerValidator>(BannerValidator).to(BannerValidator);
 
 export {container};
