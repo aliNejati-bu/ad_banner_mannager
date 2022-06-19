@@ -21,6 +21,8 @@ import {BcryptPasswordService} from "../App/Services/PasswordService/BcryptPassw
 import {IUploaderService} from "../App/Interfaces/UploaderService/IUploaderService";
 import {MulterUploaderService} from "../App/Services/UpladerService/MulterUploaderService";
 import {BannerValidator} from "../Middleware/Validators/BannerValidator";
+import {IBannerRepository} from "../Data/Interfaces/Repositories/IBannerRepository";
+import {MongooseBannerRepository} from "../Data/MongooseDatabaseService/Repository/MongooseBannerRepository";
 
 
 // create new container default in singleton mode
@@ -43,7 +45,7 @@ container.bind<Auth>(Auth).to(Auth);
 // bind repositories
 container.bind<IDatabaseService>(DataTypes.IDatabaseService).to(MongooseDatabaseService);
 container.bind<IUserRepository>(DataTypes.IUserRepository).to(MongooseUserRepository);
-
+container.bind<IBannerRepository>(DataTypes.IBannerRepository).to(MongooseBannerRepository)
 
 // bind validator to container
 container.bind<BaseValidator>(BaseValidator).to(BaseValidator);
