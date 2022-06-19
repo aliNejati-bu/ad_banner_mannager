@@ -26,6 +26,8 @@ import {MongooseBannerRepository} from "../Data/MongooseDatabaseService/Reposito
 import {Banner} from "../App/Banner";
 import {IGameRepository} from "../Data/Interfaces/Repositories/IGameRepository";
 import {MongooseGameRepository} from "../Data/MongooseDatabaseService/Repository/MongooseGameRepository";
+import {GameUseCase} from "../App/GameUseCase";
+import {GameValidator} from "../Middleware/Validators/GameValidator";
 
 
 // create new container default in singleton mode
@@ -43,7 +45,9 @@ container.bind<IUploaderService>(TYPES.IUploadService).to(MulterUploaderService)
 
 //bind app implementations
 container.bind<Auth>(Auth).to(Auth);
+container.bind<GameUseCase>(GameUseCase).to(GameUseCase);
 container.bind<Banner>(Banner).to(Banner);
+
 
 // bind repositories
 container.bind<IDatabaseService>(DataTypes.IDatabaseService).to(MongooseDatabaseService);
@@ -56,5 +60,6 @@ container.bind<IGameRepository>(DataTypes.IGameRepository).to(MongooseGameReposi
 container.bind<BaseValidator>(BaseValidator).to(BaseValidator);
 container.bind<UserValidator>(UserValidator).to(UserValidator);
 container.bind<BannerValidator>(BannerValidator).to(BannerValidator);
+container.bind<GameValidator>(GameValidator).to(GameValidator);
 
 export {container};
