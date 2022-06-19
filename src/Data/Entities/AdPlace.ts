@@ -5,7 +5,8 @@ export class AdPlace {
         public status: "active" | "inactive" | "hybrid",
         public banner: string,
         public createdAt: Date,
-        public updatedAt: Date
+        public updatedAt: Date,
+        public gameId: string
     ) {
     }
 }
