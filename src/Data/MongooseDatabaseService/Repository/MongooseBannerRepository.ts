@@ -3,7 +3,9 @@ import {Banner} from "../../Entities/Banner";
 import {BaseDataResult} from "../../Model/Result/BaseDataResult";
 import {BaseDataError} from "../../Errors/BaseDataError";
 import MongooseBannerModel from "../Model/MongooseBannerModel";
+import {injectable} from "inversify";
 
+@injectable()
 export class MongooseBannerRepository implements IBannerRepository {
     async create(banner: Banner): Promise<BaseDataResult<Banner | null>> {
         try {

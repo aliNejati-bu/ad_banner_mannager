@@ -3,7 +3,9 @@ import {Game} from "../../Entities/Game";
 import {BaseDataResult} from "../../Model/Result/BaseDataResult";
 import {BaseDataError} from "../../Errors/BaseDataError";
 import MongooseGameModel from "../Model/MongooseGameModel";
+import {injectable} from "inversify";
 
+@injectable()
 export class MongooseGameRepository implements IGameRepository {
     async create(game: Game): Promise<BaseDataResult<Game | null>> {
         try {
@@ -63,5 +65,20 @@ export class MongooseGameRepository implements IGameRepository {
             throw new BaseDataError(e.message, e);
         }
     }
+
+    async findById(id: string): Promise<BaseDataResult<Game | null>> {
+        try {
+            let result = await MongooseGameModel.findOne({_id: id});
+            if (!result) {
+                return new BaseDataResult<Game | null>(null, true);
+            }
+
+            return new BaseDataResult<Game | null>(result.toObject(), false);
+        } catch (e) {
+            throw new BaseDataError(e.message, e);
+        }
+    }
+
+
 
 }

@@ -8,7 +8,7 @@ export function wrapValidatorToMiddleware(validator: Function): any {
         validator = validator.bind((container.get(BaseValidator) as BaseValidator));
         let validatorResult = validator(req.body) as BaseValidatorAppResult<any>;
         if (validatorResult.isError) {
-            baseResponse(res, {messages: validatorResult.messages}, "validation filed.", null, "error", 400);
+            return baseResponse(res, {messages: validatorResult.messages}, "validation filed.", null, "error", 400);
         }
         next();
     };

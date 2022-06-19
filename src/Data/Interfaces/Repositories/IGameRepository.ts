@@ -30,4 +30,10 @@ export interface IGameRepository {
      * @param adminId
      */
     getAdminGames(adminId: string): Promise<BaseDataResult<null | Game[]>>;
+
+    /**
+     * find game by id
+     * @param id
+     */
+    findById(id: string): Promise<BaseDataResult<null | Game>>;
 }

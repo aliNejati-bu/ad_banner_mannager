@@ -49,4 +49,15 @@ router.delete('*', (req: Request, res: Response, next: Function) => {
     return next()
 })
 
+router.put('*', (req: Request, res: Response, next: Function) => {
+
+    console.log('')
+    console.log('<-------------------------- PUT Request -------------------------->')
+    console.log(' PUT request was made to: ' + req.originalUrl + " -> " + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''))
+    console.dir("   request params: " + JSON.stringify(req.params))
+    console.log('IP: ', req.ip)
+    console.log('')
+    return next()
+});
+
 export {router}

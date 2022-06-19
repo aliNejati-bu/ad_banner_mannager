@@ -8,7 +8,7 @@ let _auth = container.get<Auth>(Auth);
 
 export async function verifyAdminToken(req: Request, res: Response, next: NextFunction) {
     // get token from header
-    let token = req.headers['Authorization'];
+    let token = req.headers['authorization'];
 
     // check if token exists
     if (!token) {

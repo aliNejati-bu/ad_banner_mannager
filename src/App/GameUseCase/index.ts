@@ -108,10 +108,11 @@ export class GameUseCase {
      * update game usecase
      * @param packageName
      * @param name
+     * @param gameId
      */
-    async updateGame(packageName: string, name: string): Promise<BaseAppResult<Game | null>> {
+    async updateGame(packageName: string, name: string, gameId: string): Promise<BaseAppResult<Game | null>> {
         try {
-            const game = await this._gameRepository.findByPackageName(packageName);
+            const game = await this._gameRepository.findById(gameId);
             if (game.isError) {
                 return new BaseAppResult<Game | null>(
                     null,

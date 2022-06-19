@@ -12,4 +12,13 @@ export class GameValidator extends BaseValidator {
         });
         return this.createResult<T>(schema, input);
     }
+
+    updateGame<T>(input): BaseValidatorAppResult<T | null> {
+        let schema = joi.object().keys({
+            name: joi.string().required().max(255),
+            packagename: joi.string().required().max(255),
+            gameId: joi.string().required().max(255)
+        });
+        return this.createResult<T>(schema, input);
+    }
 }
