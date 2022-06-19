@@ -24,6 +24,8 @@ import {BannerValidator} from "../Middleware/Validators/BannerValidator";
 import {IBannerRepository} from "../Data/Interfaces/Repositories/IBannerRepository";
 import {MongooseBannerRepository} from "../Data/MongooseDatabaseService/Repository/MongooseBannerRepository";
 import {Banner} from "../App/Banner";
+import {IGameRepository} from "../Data/Interfaces/Repositories/IGameRepository";
+import {MongooseGameRepository} from "../Data/MongooseDatabaseService/Repository/MongooseGameRepository";
 
 
 // create new container default in singleton mode
@@ -47,6 +49,8 @@ container.bind<Banner>(Banner).to(Banner);
 container.bind<IDatabaseService>(DataTypes.IDatabaseService).to(MongooseDatabaseService);
 container.bind<IUserRepository>(DataTypes.IUserRepository).to(MongooseUserRepository);
 container.bind<IBannerRepository>(DataTypes.IBannerRepository).to(MongooseBannerRepository)
+container.bind<IGameRepository>(DataTypes.IGameRepository).to(MongooseGameRepository);
+
 
 // bind validator to container
 container.bind<BaseValidator>(BaseValidator).to(BaseValidator);

@@ -4,6 +4,7 @@ import {inject, injectable} from "inversify";
 import {IUserRepository} from "../Interfaces/Repositories/IUserRepository";
 import {DataTypes} from "../Interfaces/Types/DataTypes";
 import {IBannerRepository} from "../Interfaces/Repositories/IBannerRepository";
+import {IGameRepository} from "../Interfaces/Repositories/IGameRepository";
 
 @injectable()
 export class MongooseDatabaseService implements IDatabaseService {
@@ -14,4 +15,5 @@ export class MongooseDatabaseService implements IDatabaseService {
 
     @inject(DataTypes.IUserRepository) userRepository: IUserRepository;
     @inject(DataTypes.IBannerRepository) bannerRepository: IBannerRepository;
+    @inject(DataTypes.IGameRepository) gameRepository: IGameRepository;
 }
