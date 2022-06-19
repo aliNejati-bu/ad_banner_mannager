@@ -30,8 +30,7 @@ const adPlaceSchema = new mongoose.Schema<AdPlace>({
         },
         banner: {
             type: String,
-            required: true
-
+            required: false
         },
         gameId: {
             type: String,

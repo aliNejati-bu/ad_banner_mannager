@@ -3,7 +3,7 @@ export class AdPlace {
         public _id: string,
         public name: string,
         public status: "active" | "inactive" | "hybrid",
-        public banner: string,
+        public banner: string | null,
         public createdAt: Date,
         public updatedAt: Date,
         public gameId: string
