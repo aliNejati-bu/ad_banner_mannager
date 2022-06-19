@@ -28,6 +28,8 @@ import {IGameRepository} from "../Data/Interfaces/Repositories/IGameRepository";
 import {MongooseGameRepository} from "../Data/MongooseDatabaseService/Repository/MongooseGameRepository";
 import {GameUseCase} from "../App/GameUseCase";
 import {GameValidator} from "../Middleware/Validators/GameValidator";
+import {IAdPlaceRepository} from "../Data/Interfaces/Repositories/IAdPlaceRepository";
+import {MongooseAdPlaceRepository} from "../Data/MongooseDatabaseService/Repository/MongooseAdPlaceRepository";
 
 
 // create new container default in singleton mode
@@ -54,7 +56,7 @@ container.bind<IDatabaseService>(DataTypes.IDatabaseService).to(MongooseDatabase
 container.bind<IUserRepository>(DataTypes.IUserRepository).to(MongooseUserRepository);
 container.bind<IBannerRepository>(DataTypes.IBannerRepository).to(MongooseBannerRepository)
 container.bind<IGameRepository>(DataTypes.IGameRepository).to(MongooseGameRepository);
-
+container.bind<IAdPlaceRepository>(DataTypes.IAdPlaceRepository).to(MongooseAdPlaceRepository);
 
 // bind validator to container
 container.bind<BaseValidator>(BaseValidator).to(BaseValidator);
