@@ -23,6 +23,7 @@ import {MulterUploaderService} from "../App/Services/UpladerService/MulterUpload
 import {BannerValidator} from "../Middleware/Validators/BannerValidator";
 import {IBannerRepository} from "../Data/Interfaces/Repositories/IBannerRepository";
 import {MongooseBannerRepository} from "../Data/MongooseDatabaseService/Repository/MongooseBannerRepository";
+import {Banner} from "../App/Banner";
 
 
 // create new container default in singleton mode
@@ -40,7 +41,7 @@ container.bind<IUploaderService>(TYPES.IUploadService).to(MulterUploaderService)
 
 //bind app implementations
 container.bind<Auth>(Auth).to(Auth);
-
+container.bind<Banner>(Banner).to(Banner);
 
 // bind repositories
 container.bind<IDatabaseService>(DataTypes.IDatabaseService).to(MongooseDatabaseService);
