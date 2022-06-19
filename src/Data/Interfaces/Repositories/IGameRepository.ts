@@ -17,4 +17,17 @@ export interface IGameRepository {
      * @param game
      */
     create(game: Game): Promise<BaseDataResult<null | Game>>;
+
+    /**
+     * update a game
+     * @param game
+     */
+    update(game: Game): Promise<BaseDataResult<null | Game>>;
+
+
+    /**
+     * get a admin games
+     * @param adminId
+     */
+    getAdminGames(adminId: string): Promise<BaseDataResult<null | Game[]>>;
 }
