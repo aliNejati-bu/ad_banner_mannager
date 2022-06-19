@@ -1,5 +1,4 @@
 import {Router} from "express";
-import api from "../index";
 import ExampleController from "../../../Controller/Controllers/ExampleController";
 import AuthController from "../../../Controller/Controllers/AuthController";
 import BannerController from "../../../Controller/Controllers/BannerController";
