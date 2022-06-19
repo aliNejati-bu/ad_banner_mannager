@@ -1,0 +1,11 @@
+export class AdPlace {
+    constructor(
+        public _id: string,
+        public name: string,
+        public status: "active" | "inactive" | "hybrid",
+        public banner: string,
+        public createdAt: Date,
+        public updatedAt: Date
+    ) {
+    }
+}
