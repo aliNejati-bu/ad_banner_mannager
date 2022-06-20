@@ -32,7 +32,7 @@ const bannerSchema = new mongoose.Schema<Impression>({
         required: true
 
     },
-    country: {
+    countryCode: {
         type: String,
         required: true
     }

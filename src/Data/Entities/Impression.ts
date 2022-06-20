@@ -4,7 +4,7 @@ export class Impression {
         public adPlace: string,
         public game: string,
         public banner: string,
-        public country: string,
+        public countryCode: string,
         public createdAt: Date,
         public updatedAt: Date,
     ) {
