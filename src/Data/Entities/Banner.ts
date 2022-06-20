@@ -6,6 +6,7 @@ export class Banner {
         public url: string,
         public createdAt: Date,
         public updatedAt: Date,
+        public creator: string
     ) {
     }
 }

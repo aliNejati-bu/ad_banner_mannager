@@ -6,6 +6,8 @@ import {wrapValidatorToMiddleware} from "../../Middleware/general";
 import {TYPES} from "../../App/Interfaces/Types";
 import {IUploaderService} from "../../App/Interfaces/UploaderService/IUploaderService";
 import {Banner} from "../../App/Banner";
+import {verifyAdminToken} from "../../Middleware/userMiddlewares";
+import {baseResponse} from "../../helpers/functions";
 
 export class BannerController extends Controller {
     constructor(
@@ -15,9 +17,13 @@ export class BannerController extends Controller {
     }
 
     public async CreateBanner(req: Request, res: Response, next: Function) {
-        console.log(req.files)
-        res.send("CreateBanner");
+        const result = await this._banner.create(req.body.name, req.file.path, req.body.url, (req as any).user._id);
+        if (result.isError) {
+            return baseResponse(res, null, result.message, undefined, result.ResultStatus, result.ResultStatus ? 400 : 500);
+        }
+        return baseResponse(res, result.result, "banner created.", undefined, result.ResultStatus, result.ResultStatus ? 200 : 500);
     }
+
 }
 
 export default function (): BannerController {
@@ -25,8 +31,9 @@ export default function (): BannerController {
     const uploaderService = container.get<IUploaderService>(TYPES.IUploadService);
     const banner = new BannerController(container.get(Banner));
     banner.addAction("/", "post", banner.CreateBanner, [
-        wrapValidatorToMiddleware(bannerValidator.createBanner),
-        uploaderService.uploadMiddlewareWithGeneralSetting("image")
+        verifyAdminToken,
+        uploaderService.uploadMiddlewareWithGeneralSetting("image"),
+        wrapValidatorToMiddleware(bannerValidator.createBanner)
     ]);
     return banner;
 }

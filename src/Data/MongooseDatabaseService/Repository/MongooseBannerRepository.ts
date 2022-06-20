@@ -29,4 +29,36 @@ export class MongooseBannerRepository implements IBannerRepository {
         }
     }
 
+    /**
+     * Find all banners userId
+     * @param userId
+     */
+    async findAllByUserId(userId: string): Promise<BaseDataResult<Banner[] | null>> {
+        try {
+            let result = await MongooseBannerModel.find({userId});
+            if (!result) {
+                return new BaseDataResult<Banner[] | null>(null, true);
+            }
+            return new BaseDataResult<Banner[] | null>(result.map(item => item.toObject()), false);
+        } catch (e) {
+            throw new BaseDataError("Error while finding banners", e);
+        }
+    }
+
+    /**
+     * update a banner
+     * @param banner
+     */
+    async update(banner: Banner): Promise<BaseDataResult<Banner | null>> {
+        try {
+            let result = await MongooseBannerModel.findOneAndUpdate({_id: banner._id}, banner);
+            if (!result) {
+                return new BaseDataResult<Banner | null>(null, true);
+            }
+            return new BaseDataResult<Banner | null>(result.toObject(), false);
+        } catch (e) {
+            throw new BaseDataError("Error while updating banner", e);
+        }
+    }
+
 }

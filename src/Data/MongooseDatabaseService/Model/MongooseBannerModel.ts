@@ -27,6 +27,10 @@ const bannerSchema = new mongoose.Schema<Banner>({
     url: {
         type: String,
         required: true,
+    },
+    creator: {
+        type: String,
+        required: true
     }
 });
 

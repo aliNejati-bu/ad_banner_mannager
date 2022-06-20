@@ -26,8 +26,7 @@ export async function verifyAdminToken(req: Request, res: Response, next: NextFu
 
     // attach user to request
     req.body.user = result.result;
-
-
+    (req as any).user = result.result;
     next();
 }
 
