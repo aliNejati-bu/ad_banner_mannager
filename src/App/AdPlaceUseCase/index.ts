@@ -8,11 +8,13 @@ import {ILoggerService} from "../../Utils/Interfaces/LoggeService/ILoggerService
 import {BaseAppResult} from "../Model/Result/BaseAppResult";
 import {ResultStatus} from "../Model/Result/ResultStatus";
 import {AdPlace} from "../../Data/Entities/AdPlace";
+import {IBannerRepository} from "../../Data/Interfaces/Repositories/IBannerRepository";
 
 @injectable()
 export class AdPlaceUseCase {
     // inject the repository
     @inject(DataTypes.IAdPlaceRepository) private _adPlaceRepository: IAdPlaceRepository;
+    @inject(DataTypes.IBannerRepository) private _bannerRepository: IBannerRepository;
 
     // inject the services
     @inject(TYPES.IIDService) private _idService: IIDService;
@@ -34,6 +36,16 @@ export class AdPlaceUseCase {
      */
     public async createAdPlace(name: string, status: "active" | "inactive" | "hybrid", banner: string | null, gameId: string): Promise<BaseAppResult<{ id: string } | null>> {
         try {
+
+            // check if the banner exists
+            if (banner) {
+                const result = await this._bannerRepository.findById(banner);
+                if (result.isError) {
+                    return new BaseAppResult<{ id: string } | null>(null, true, "Error getting Banner", ResultStatus.NotFound);
+                }
+            }
+
+
             // create a new AdPlace
             const adPlace = new AdPlace(
                 this._idService.generate(),
@@ -108,6 +120,14 @@ export class AdPlaceUseCase {
      */
     public async updateAdPlace(id: string, name: string, status: "active" | "inactive" | "hybrid", banner: string | null): Promise<BaseAppResult<AdPlace | null>> {
         try {
+
+            // check if the banner exists
+            if (banner) {
+                const result = await this._bannerRepository.findById(banner);
+                if (result.isError) {
+                    return new BaseAppResult<AdPlace | null>(null, true, "Error getting Banner", ResultStatus.NotFound);
+                }
+            }
 
             // get the AdPlace
             const result = await this._adPlaceRepository.getById(id);
