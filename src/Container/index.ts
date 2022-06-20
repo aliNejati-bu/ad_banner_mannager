@@ -30,6 +30,9 @@ import {GameUseCase} from "../App/GameUseCase";
 import {GameValidator} from "../Middleware/Validators/GameValidator";
 import {IAdPlaceRepository} from "../Data/Interfaces/Repositories/IAdPlaceRepository";
 import {MongooseAdPlaceRepository} from "../Data/MongooseDatabaseService/Repository/MongooseAdPlaceRepository";
+import {AdPlace} from "../Data/Entities/AdPlace";
+import {AdPlaceUseCase} from "../App/AdPlaceUseCase";
+import {AdPlaceValidator} from "../Middleware/Validators/AdPlaceValidator";
 
 
 // create new container default in singleton mode
@@ -49,7 +52,7 @@ container.bind<IUploaderService>(TYPES.IUploadService).to(MulterUploaderService)
 container.bind<Auth>(Auth).to(Auth);
 container.bind<GameUseCase>(GameUseCase).to(GameUseCase);
 container.bind<Banner>(Banner).to(Banner);
-
+container.bind<AdPlaceUseCase>(AdPlaceUseCase).to(AdPlaceUseCase);
 
 // bind repositories
 container.bind<IDatabaseService>(DataTypes.IDatabaseService).to(MongooseDatabaseService);
@@ -63,5 +66,6 @@ container.bind<BaseValidator>(BaseValidator).to(BaseValidator);
 container.bind<UserValidator>(UserValidator).to(UserValidator);
 container.bind<BannerValidator>(BannerValidator).to(BannerValidator);
 container.bind<GameValidator>(GameValidator).to(GameValidator);
+container.bind<AdPlaceValidator>(AdPlaceValidator).to(AdPlaceValidator);
 
 export {container};

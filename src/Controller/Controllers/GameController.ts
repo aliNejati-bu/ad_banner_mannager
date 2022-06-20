@@ -6,7 +6,7 @@ import {ResultStatus} from "../../App/Model/Result/ResultStatus";
 import {container} from "../../Container";
 import {GameValidator} from "../../Middleware/Validators/GameValidator";
 import {wrapValidatorToMiddleware} from "../../Middleware/general";
-import {verifyAdminToken} from "../../Middleware/userMiddlewares";
+import {isAccessToGame, verifyAdminToken} from "../../Middleware/userMiddlewares";
 
 @injectable()
 export class GameController extends Controller {
@@ -67,13 +67,12 @@ export default function (): GameController {
     controller.addAction("/", "put", controller.editGame,
         [
             wrapValidatorToMiddleware(validator.updateGame),
-            verifyAdminToken
+            verifyAdminToken,
+            isAccessToGame
         ]);
     controller.addAction("/", "get", controller.getAllGames,
         [
             verifyAdminToken
         ]);
-
-
     return controller;
 }

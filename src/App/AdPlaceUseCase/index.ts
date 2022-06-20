@@ -108,9 +108,10 @@ export class AdPlaceUseCase {
      */
     public async updateAdPlace(id: string, name: string, status: "active" | "inactive" | "hybrid", banner: string | null): Promise<BaseAppResult<AdPlace | null>> {
         try {
+
             // get the AdPlace
             const result = await this._adPlaceRepository.getById(id);
-            if (!result) {
+            if (result.isError) {
                 return new BaseAppResult<AdPlace | null>(null, true, "Error getting AdPlace", ResultStatus.NotFound);
             }
             // update the AdPlace
@@ -120,7 +121,7 @@ export class AdPlaceUseCase {
             result.data.updatedAt = new Date();
             // save the AdPlace
             const resultUpdate = await this._adPlaceRepository.update(result.data);
-            if (!resultUpdate) {
+            if (resultUpdate.isError) {
                 return new BaseAppResult<AdPlace | null>(null, true, "Error updating AdPlace", ResultStatus.Unknown);
             }
             return new BaseAppResult<AdPlace | null>(resultUpdate.data, false, "AdPlace updated", ResultStatus.Success);

@@ -191,4 +191,36 @@ export class GameUseCase {
             );
         }
     }
+
+    /**
+     * getGameById usecase
+     * @param gameId
+     */
+    async getGameById(gameId: string): Promise<BaseAppResult<Game | null>> {
+        try {
+            const game = await this._gameRepository.findById(gameId);
+            if (game.isError) {
+                return new BaseAppResult<Game | null>(
+                    null,
+                    true,
+                    "error on get game.",
+                    ResultStatus.Unknown
+                );
+            }
+
+            return new BaseAppResult<Game | null>(
+                game.data,
+                false,
+                "game found.",
+                ResultStatus.Success
+            );
+        } catch (e) {
+            return new BaseAppResult<Game | null>(
+                null,
+                true,
+                "error on get game.",
+                ResultStatus.Unknown
+            );
+        }
+    }
 }
