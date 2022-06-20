@@ -33,6 +33,8 @@ import {MongooseAdPlaceRepository} from "../Data/MongooseDatabaseService/Reposit
 import {AdPlace} from "../Data/Entities/AdPlace";
 import {AdPlaceUseCase} from "../App/AdPlaceUseCase";
 import {AdPlaceValidator} from "../Middleware/Validators/AdPlaceValidator";
+import {IImpressionRepository} from "../Data/Interfaces/Repositories/IImpressionRepository";
+import {MongooseImpressionRepository} from "../Data/MongooseDatabaseService/Repository/MongooseImpressionRepository";
 
 
 // create new container default in singleton mode
@@ -60,6 +62,8 @@ container.bind<IUserRepository>(DataTypes.IUserRepository).to(MongooseUserReposi
 container.bind<IBannerRepository>(DataTypes.IBannerRepository).to(MongooseBannerRepository)
 container.bind<IGameRepository>(DataTypes.IGameRepository).to(MongooseGameRepository);
 container.bind<IAdPlaceRepository>(DataTypes.IAdPlaceRepository).to(MongooseAdPlaceRepository);
+container.bind<IImpressionRepository>(DataTypes.IImpressionRepository).to(MongooseImpressionRepository)
+
 
 // bind validator to container
 container.bind<BaseValidator>(BaseValidator).to(BaseValidator);
