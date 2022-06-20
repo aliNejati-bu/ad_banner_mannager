@@ -61,4 +61,20 @@ export class MongooseBannerRepository implements IBannerRepository {
         }
     }
 
+    /**
+     * find banner by Id
+     * @param bannerId
+     */
+    async findById(bannerId: string): Promise<BaseDataResult<Banner | null>> {
+        try {
+            let result = await MongooseBannerModel.findOne({_id: bannerId});
+            if (!result) {
+                return new BaseDataResult<Banner | null>(null, true);
+            }
+            return new BaseDataResult<Banner | null>(result.toObject(), false);
+        } catch (e) {
+            throw new BaseDataError("Error while finding banner", e);
+        }
+    }
+
 }

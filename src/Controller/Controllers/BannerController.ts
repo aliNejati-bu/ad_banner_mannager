@@ -8,6 +8,7 @@ import {IUploaderService} from "../../App/Interfaces/UploaderService/IUploaderSe
 import {Banner} from "../../App/Banner";
 import {verifyAdminToken} from "../../Middleware/userMiddlewares";
 import {baseResponse} from "../../helpers/functions";
+import {ResultStatus} from "../../App/Model/Result/ResultStatus";
 
 export class BannerController extends Controller {
     constructor(
@@ -17,11 +18,34 @@ export class BannerController extends Controller {
     }
 
     public async CreateBanner(req: Request, res: Response, next: Function) {
+        if (!req.file) {
+            return baseResponse(res, null, "no file uploaded", undefined, ResultStatus.Invalid, 400);
+        }
         const result = await this._banner.create(req.body.name, req.file.path, req.body.url, (req as any).user._id);
         if (result.isError) {
             return baseResponse(res, null, result.message, undefined, result.ResultStatus, result.ResultStatus ? 400 : 500);
         }
         return baseResponse(res, result.result, "banner created.", undefined, result.ResultStatus, result.ResultStatus ? 200 : 500);
+    }
+
+
+    public async updateBanner(req: Request, res: Response, next: Function) {
+        if (!req.file) {
+            return baseResponse(res, null, "no file uploaded", undefined, ResultStatus.Invalid, 400);
+        }
+        const result = await this._banner.update(req.body.name, req.file.path, req.body.url, req.body._id, (req as any).user._id);
+        if (result.isError) {
+            return baseResponse(res, null, result.message, undefined, result.ResultStatus, result.ResultStatus ? 400 : 500);
+        }
+        return baseResponse(res, result.result, "banner updated.", undefined, result.ResultStatus, result.ResultStatus ? 200 : 500);
+    }
+
+    public async getAllUserBanners(req: Request, res: Response, next: Function) {
+        const result = await this._banner.findAllByUserId((req as any).user._id);
+        if (result.isError) {
+            return baseResponse(res, null, result.message, undefined, result.ResultStatus, result.ResultStatus ? 400 : 500);
+        }
+        return baseResponse(res, result.result, "banners found.", undefined, result.ResultStatus, result.ResultStatus ? 200 : 500);
     }
 
 }
@@ -35,5 +59,17 @@ export default function (): BannerController {
         uploaderService.uploadMiddlewareWithGeneralSetting("image"),
         wrapValidatorToMiddleware(bannerValidator.createBanner)
     ]);
+
+    banner.addAction("/", "put", banner.updateBanner, [
+        verifyAdminToken,
+        uploaderService.uploadMiddlewareWithGeneralSetting("image"),
+        wrapValidatorToMiddleware(bannerValidator.updateBanner)
+    ]);
+
+    banner.addAction("/", "get", banner.getAllUserBanners, [
+        verifyAdminToken
+    ]);
+
+
     return banner;
 }

@@ -67,18 +67,23 @@ export class Banner {
 
     /**
      * update a banner
-     * @param banner
      * @param name
      * @param image
      * @param url
+     * @param bannerId
+     * @param creator
      *
      */
-    public async update(banner: BannerEntity.Banner, name: string, image: string, url: string): Promise<BaseAppResult<BannerEntity.Banner | null>> {
+    public async update(name: string, image: string, url: string, bannerId: string, creator: string): Promise<BaseAppResult<BannerEntity.Banner | null>> {
         try {
             // search for banner with same name
-            const bannerToUpdate = await this._bannerRepository.findByName(name);
+            const bannerToUpdate = await this._bannerRepository.findById(bannerId);
             if (bannerToUpdate.isError) {
                 return new BaseAppResult<BannerEntity.Banner | null>(null, true, "banner not found.", ResultStatus.NotFound);
+            }
+            // check same creator
+            if (bannerToUpdate.data.creator !== creator) {
+                return new BaseAppResult<BannerEntity.Banner | null>(null, true, "you are not the creator of this banner.", ResultStatus.NotMatch);
             }
 
             // update banner

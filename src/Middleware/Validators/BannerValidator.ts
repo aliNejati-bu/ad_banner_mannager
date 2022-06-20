@@ -10,4 +10,13 @@ export class BannerValidator extends BaseValidator {
         });
         return this.createResult<T>(schema, input);
     }
+
+    updateBanner<T>(input): BaseValidatorAppResult<T | null> {
+        let schema = joi.object().keys({
+            _id: joi.string().required(),
+            name: joi.string().required().max(255),
+            url: joi.string().required().max(255)
+        });
+        return this.createResult<T>(schema, input);
+    }
 }

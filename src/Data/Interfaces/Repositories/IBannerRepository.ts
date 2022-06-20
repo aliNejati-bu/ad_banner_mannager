@@ -30,4 +30,10 @@ export interface IBannerRepository {
      */
     update(banner: Banner): Promise<BaseDataResult<null | Banner>>;
 
+    /**
+     * find banner by Id
+     * @param bannerId
+     */
+    findById(bannerId: string): Promise<BaseDataResult<null | Banner>>;
+
 }
