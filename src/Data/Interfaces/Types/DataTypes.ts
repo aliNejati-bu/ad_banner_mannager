@@ -4,4 +4,5 @@ export const DataTypes = {
     IBannerRepository: Symbol.for("IBannerRepository"),
     IGameRepository: Symbol.for("IGameRepository"),
     IAdPlaceRepository: Symbol.for("IAdPlaceRepository"),
+    IImpressionRepository: Symbol.for("IImpressionRepository"),
 }

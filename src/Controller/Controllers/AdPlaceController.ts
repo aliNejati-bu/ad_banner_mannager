@@ -24,7 +24,7 @@ export class AdPlaceController extends Controller {
             req.body.gameId
         );
         if (result.isError) {
-            return baseResponse(res, null, result.message, undefined, result.ResultStatus, 500);
+            return baseResponse(res, null, result.message, undefined, result.ResultStatus, result.ResultStatus === ResultStatus.NotFound ? 404 : 500);
         }
         return baseResponse(res, result.result, result.message, undefined, result.ResultStatus, 200);
     }
